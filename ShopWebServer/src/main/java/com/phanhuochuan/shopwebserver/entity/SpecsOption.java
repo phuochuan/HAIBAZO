@@ -17,4 +17,9 @@ public class SpecsOption {
     private Long id;
     @Column(length = 50)
     private String value;
+
+    @ManyToOne
+    @JoinColumn(name = "spu_specs_id")
+    private SpuSpecs spuSpecs;
+
 }

@@ -40,6 +40,9 @@ public class ProductSku {
     @JoinColumn(name = "sales_offder_id")
     private SalesOffer salesOffer;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "productSku")
+    private List<SkuSpecs> skuSpecs;
+
 
 
 }

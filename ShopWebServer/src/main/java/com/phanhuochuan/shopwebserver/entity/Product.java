@@ -20,17 +20,29 @@ public class Product {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 50)
     private String name;
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
+    @Column(length = 1000)
     private String description;
     @JdbcTypeCode(SqlTypes.JSON)
     private Map<String,String> attributes;
     private Boolean isDeleted;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Resource> resources;
+    private String thumbnailUrl;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product",cascade = CascadeType.ALL)
     private List<ProductSku> productSkus;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Review> reviews;
+
+
 
 }

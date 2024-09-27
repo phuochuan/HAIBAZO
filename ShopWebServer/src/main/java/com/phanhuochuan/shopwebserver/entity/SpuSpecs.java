@@ -3,6 +3,8 @@ package com.phanhuochuan.shopwebserver.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "`SpuSpecs`")
 
@@ -18,7 +20,9 @@ public class SpuSpecs {
     @Column(length = 100)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @ManyToMany
+    private List<Product> products;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "spuSpecs")
+    private List<SpecsOption> specsOptions;
 }
